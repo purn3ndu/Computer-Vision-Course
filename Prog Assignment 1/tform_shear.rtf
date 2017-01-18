@@ -1,0 +1,26 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red43\green39\blue19;\red235\green236\blue237;\red36\green38\blue41;
+\red104\green26\blue29;\red114\green121\blue129;\red37\green127\blue159;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl300\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 mg\cf4 \strokec4  = \cf2 \strokec2 imread\cf5 \strokec5 ('cameraman.tif')\cf4 \strokec4 ;  \cf6 \strokec6 %# Read a sample grayscale image\cf4 \strokec4 \
+\cf2 \strokec2 img\cf4 \strokec4  = \cf7 \strokec7 double\cf5 \strokec5 (\cf2 \strokec2 img\cf5 \strokec5 )\cf4 \strokec4 ;              \cf6 \strokec6 %# Convert the image to type double\cf4 \strokec4 \
+\pard\pardeftab720\sl300\partightenfactor0
+\cf5 \strokec5 [\cf2 \strokec2 nRows\cf4 \strokec4 ,\cf2 \strokec2 nCols\cf5 \strokec5 ]\cf4 \strokec4  = \cf2 \strokec2 size\cf5 \strokec5 (\cf2 \strokec2 img\cf5 \strokec5 )\cf4 \strokec4 ;      \cf6 \strokec6 %# Get the image size\cf4 \strokec4 \
+\cf5 \strokec5 [\cf2 \strokec2 x\cf4 \strokec4 ,\cf2 \strokec2 y\cf5 \strokec5 ]\cf4 \strokec4  = \cf2 \strokec2 meshgrid\cf5 \strokec5 (1\cf4 \strokec4 :\cf2 \strokec2 nRows\cf4 \strokec4 ,\cf5 \strokec5 1\cf4 \strokec4 :\cf2 \strokec2 nCols\cf5 \strokec5 )\cf4 \strokec4 ;  \cf6 \strokec6 %# Create coordinate values for the pixels\cf4 \strokec4 \
+\pard\pardeftab720\sl300\partightenfactor0
+\cf2 \strokec2 coords\cf4 \strokec4  = \cf5 \strokec5 [\cf2 \strokec2 x\cf5 \strokec5 (\cf4 \strokec4 :\cf5 \strokec5 )\cf2 \strokec2 '\cf4 \strokec4 ; \cf2 \strokec2 y\cf5 \strokec5 (\cf4 \strokec4 :\cf5 \strokec5 )\cf2 \strokec2 '\cf5 \strokec5 ]\cf4 \strokec4 ;            \cf6 \strokec6 %# Collect the coordinates into one matrix\cf4 \strokec4 \
+\cf2 \strokec2 shearMatrix\cf4 \strokec4  = \cf5 \strokec5 [1\cf4 \strokec4  \cf5 \strokec5 0.2\cf4 \strokec4 ; \cf5 \strokec5 0\cf4 \strokec4  \cf5 \strokec5 1]\cf4 \strokec4 ;         \cf6 \strokec6 %# Create a shear matrix\cf4 \strokec4 \
+\cf2 \strokec2 newCoords\cf4 \strokec4  = \cf2 \strokec2 shearMatrix\cf4 \strokec4 *\cf2 \strokec2 coords\cf4 \strokec4 ;     \cf6 \strokec6 %# Apply the shear to the coordinates\cf4 \strokec4 \
+\cf2 \strokec2 newImage\cf4 \strokec4  = \cf2 \strokec2 interp2\cf5 \strokec5 (\cf2 \strokec2 img\cf4 \strokec4 ,...             \cf6 \strokec6 %# Interpolate the image values\cf4 \strokec4 \
+                   \cf2 \strokec2 newCoords\cf5 \strokec5 (1\cf4 \strokec4 ,:\cf5 \strokec5 )\cf4 \strokec4 ,...  \cf6 \strokec6 %#   at the new x coordinates\cf4 \strokec4 \
+                   \cf2 \strokec2 newCoords\cf5 \strokec5 (2\cf4 \strokec4 ,:\cf5 \strokec5 )\cf4 \strokec4 ,...  \cf6 \strokec6 %#   and the new y coordinates\cf4 \strokec4 \
+                   \cf5 \strokec5 'linear'\cf4 \strokec4 ,...        \cf6 \strokec6 %#   using linear interpolation\cf4 \strokec4 \
+                   \cf5 \strokec5 0)\cf4 \strokec4 ;                 \cf6 \strokec6 %#   and 0 for pixels outside the image\cf4 \strokec4 \
+\cf2 \strokec2 newImage\cf4 \strokec4  = \cf2 \strokec2 reshape\cf5 \strokec5 (\cf2 \strokec2 newImage\cf4 \strokec4 ,\cf2 \strokec2 nRows\cf4 \strokec4 ,\cf2 \strokec2 nCols\cf5 \strokec5 )\cf4 \strokec4 ;  \cf6 \strokec6 %# Reshape the image data\cf4 \strokec4 \
+\cf2 \strokec2 newImage\cf4 \strokec4  = \cf7 \strokec7 uint8\cf5 \strokec5 (\cf2 \strokec2 newImage\cf5 \strokec5 )\cf4 \strokec4 ;                \cf6 \strokec6 %# Convert the image to type uint8\cf2 \strokec2 \
+}

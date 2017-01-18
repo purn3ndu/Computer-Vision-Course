@@ -1,0 +1,19 @@
+img = im2double(rgb2gray(imread('ufcise3.jpg')));
+
+%[c,r,P] = impixel(img)
+
+c = [58 256 268 81]';
+r = [61 64 275 290];
+
+base = [0 9; 9 9; 9 0; 0 0];
+tf = cp2tform([c r],base*25,'projective');
+disp('tf = ');
+disp(tf)
+disp('tf.tdata = ');
+disp(tf.tdata);
+
+T = tf.tdata.T;
+disp('T =');
+format short g
+disp(T);
+format

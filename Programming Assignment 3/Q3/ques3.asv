@@ -1,0 +1,61 @@
+f=imread('s4_1.pgm');
+g=imread('s10_1.pgm');
+
+% plot original first image file in first quadrant
+figure,subplot(221),imshow(f,[ ]);
+% transform first image to frequency domain and compute magnitude and phase
+F=fft2(f);
+FA=abs(F);
+FP=atan2(imag(F),real(F));
+FB=exp(j*FP);
+% convert magnitude only back to image; convert phase only back to image
+FM=real(ifft2(FA));
+FN=real(ifft2(FB));
+% determine maximum and minimum of magnitude image and print on screen
+FMmax=max(max(FM))
+FMmin=min(min(FM))
+% convert magnitude only and phase only images to uint8 format for display
+FMS=im2uint8(mat2gray(FM));
+FNS=im2uint8(mat2gray(FN));
+% display magnitude only image in second quadrant
+subplot(222),imshow(FMS, [0 25]);
+stitle='image reconstructed from magnitude only';
+title(stitle);
+
+
+% display original image in third quadrant;
+% phase only image in fourth quadrant using the range [75 175] determined empiracally
+subplot(223),imshow(f,[ ]);
+subplot(224),imshow(FNS,[0 175]);
+stitle='image reconstructed from phase only';
+title(stitle);
+figure,subplot(221),imshow(g,[ ]);
+
+
+% determine magnitude and phase for the second image;
+% convert to magnitude-only and phase-only images for the second image
+G=fft2(g);
+GA=abs(G);
+GP=atan2(imag(G),real(G));
+GB=exp(j*GP);
+GM=real(ifft2(GA));
+GN=real(ifft2(GB));
+% determine maximum and minimum of magnitude-only second image and print
+GMmax=max(max(GM));
+GMmin=min(min(GM));
+fprintf(GMmin, GMmax);
+% convert magnitude-only and phase-only images to uint8 format
+GMS=im2uint8(mat2gray(GM));
+GNS=im2uint8(mat2gray(GN));
+% plot original second image in first quadrant
+% plot magnitude only second image in second quadrant
+figure; subplot(221),imshow(g,[ ]);
+subplot(222),imshow(GMS, [0 25]);
+stitle='image reconstructed from magnitude only';
+title(stitle);
+% plot original second image in third quadrant
+% plot phase-only second image in fourth quadrant
+subplot(223),imshow(g,[ ]);
+subplot(224),imshow(GNS,[75 175]);
+stitle='image reconstructed from phase only';
+title(stitle);

@@ -1,0 +1,41 @@
+%function 
+img = imread('squares.png');
+img = double(img);
+[nRows,nCols] = size(img); 
+
+shear = [ 1 2; 0 1];
+rotate = [cosd(45) -sind(45); sind(45) cosd(45)];
+shearedimg = zeros(nRows,nCols);
+
+for i = 1 : nRows
+    for j = 1 : nCols
+        
+        %Applying shear first
+        x2 = shear(1,1)*i + shear(1,2)*j;
+        y2 = shear(2,1)*i + shear(2,2)*j;
+        shearedImg(x2,y2) = img(i,j);
+    end
+end        
+
+%Applying rotation next
+[nRows,nCols] = size(shearedImg); 
+rotatedImg = zeros(nRows,nCols);
+
+for i = 1 : nRows
+    for j = 1 : nCols 
+
+for i = 1 : nRows
+    for j = 1 : nCols        
+        
+        center=size(shearedImg)/2;
+        
+        x2 = rotate(1,1)*i + rotate(1,2)*j;
+        x2= uint8(floor(x2));
+        y2 = rotate(2,1)*i + rotate(2,2)*j;
+        y2= uint8(floor(y2));
+        rotatedImg(x2,y2) = shearedImg(i,j);
+        
+    end
+end
+
+imshow(rotatedImg);
